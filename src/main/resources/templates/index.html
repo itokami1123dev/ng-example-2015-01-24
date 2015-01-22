@@ -10,34 +10,36 @@
     <script src="js/directives.js"></script>
 </head>
 <body>
-<div ng-controller="HelloCtr as vm">
+<div class="container">
+    <div ng-controller="HelloCtr as vm" class="col-xs-4 col-xs-offset-4">
 
-    <!-- normal -->
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>番号</th>
-            <th>名前</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="item in vm.list">
-            <td>{{item.no}}</td>
-            <td>{{item.name}}</td>
-        </tr>
-        </tbody>
-    </table>
+        <!-- normal -->
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>番号</th>
+                <th>名前</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in vm.list">
+                <td>{{item.no}}</td>
+                <td>{{item.name}}</td>
+            </tr>
+            </tbody>
+        </table>
 
-    <ore-table data="vm.list">
-        <column title="番号" name="no"></column>
-        <column title="名前" name="name"></column>
-    </ore-table>
+        <ore-table data="vm.list">
+            <column title="番号" name="no"></column>
+            <column title="名前" name="name"></column>
+        </ore-table>
 
-    <ore-grid data="vm" layout="gLayout"></ore-grid>
-    <script th:inline="javascript">
-        var globalLayout = /*[[${layout}]]*/ null;
-    </script>
+        <ore-grid data="vm" layout="gLayout"></ore-grid>
+        <script th:inline="javascript">
+            var globalLayout = /*[[${layout}]]*/ null;
+        </script>
 
+    </div>
 </div>
 </body>
 </html>
