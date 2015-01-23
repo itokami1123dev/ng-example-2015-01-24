@@ -60,8 +60,8 @@
 (function () {
     var m = angular.module("directives");
 
-    var oreTableTemplate = {
-        root: '<table class="table table-striped" ></table>',
+    var oreGridTemplate = {
+        root: '<table class="table table-striped" ><thead></thead><tbody></tbody></table>',
         row: '<tr></tr>',
         hcol: '<th></th>',
         col: '<td></td>'
@@ -69,7 +69,7 @@
 
     var GridComponent = function (layout) {
         this.layout = layout;
-        this.template = oreTableTemplate;
+        this.template = oreGridTemplate;
     };
 
     GridComponent.prototype.getModelId = function () {
@@ -81,6 +81,7 @@
 
         this.layout.row.columns.forEach(function (colLayout, colIdx) {
             var $col = $(this.template.hcol);
+            $col.css("text-align", colLayout.align);
             $col.text(colLayout.title);
             $row.append($col);
         }, this);
@@ -105,14 +106,14 @@
         return {
             restrict: "E",
             scope: {data: "="},
-            template: oreTableTemplate.root,
+            template: oreGridTemplate.root,
             link: function (scope, iElm, iAttrs) {
                 var layout = globalLayout[iAttrs.layout];
                 var comp = new GridComponent(layout);
 
-                var $el = iElm.find("table");
+                var $thead = iElm.find("thead");
 
-                $el.append(comp.getHead());
+                $thead.append(comp.getHead());
 
                 var listModel = scope.data[comp.getModelId()];
                 var $tr = comp.getRow();
@@ -121,12 +122,12 @@
                     return listModel;
 
                 }, function () {
-                    $el.empty();
+                    var $tbody = iElm.find("tbody").empty();
                     listModel.forEach(function (rowData, rowIdx) {
                         var rowScope = scope.$new();
                         rowScope.rowData = rowData;
                         rowScope.rowIdx = rowIdx;
-                        $el.append(
+                        $tbody.append(
                             $compile(comp.getRow())(rowScope)
                         );
                     });

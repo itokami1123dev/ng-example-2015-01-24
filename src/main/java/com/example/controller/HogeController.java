@@ -26,7 +26,7 @@ public class HogeController {
         c1.setAlign("right");
 
         OreColumn c2 = new OreColumn();
-        c1.setTitle("名前");
+        c2.setTitle("名前");
         c2.setName("name");
         c2.setAlign("left");
 
